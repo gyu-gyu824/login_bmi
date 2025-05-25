@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: login-bmi-deployment
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: login-bmi
+  template:
+    metadata:
+      labels:
+        app: login-bmi
+    spec:
+      containers:
+      - name: login-bmi
+        image: gyuhyuk/login_bmi
+        ports:
+        - containerPort: 80
+

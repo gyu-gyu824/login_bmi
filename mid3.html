@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>BMI 계산기</title>
+  <style>
+    body {
+      background: #fafbfc;
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+    .container {
+      width: 350px;
+      margin: 80px auto;
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+      padding: 40px 30px 30px 30px;
+      text-align: center;
+    }
+    h2 {
+      margin-bottom: 28px;
+      font-weight: 600;
+      color: #222;
+    }
+    label {
+      display: block;
+      text-align: left;
+      margin-bottom: 6px;
+      color: #bbb;
+      font-size: 0.97rem;
+      letter-spacing: 1px;
+    }
+    input[type="text"] {
+      width: 100%;
+      border: none;
+      border-bottom: 1px solid #bbb;
+      background: transparent;
+      padding: 10px 5px;
+      margin-bottom: 18px;
+      font-size: 1rem;
+      outline: none;
+      transition: border 0.2s;
+    }
+    input[type="text"]:focus {
+      border-bottom: 1.5px solid #a3bffa;
+    }
+    #btn {
+      width: 100%;
+      background: #d2ad7b;
+      color: #fff;
+      border: none;
+      border-radius: 22px;
+      padding: 12px 0;
+      font-size: 1.1rem;
+      font-weight: 600;
+      cursor: pointer;
+      margin-top: 10px;
+      transition: background 0.2s;
+    }
+    #btn:hover {
+      background: #b8935c;
+    }
+    #bmi {
+      margin-top: 24px;
+      font-size: 1.05rem;
+      color: #333;
+      min-height: 24px;
+    }
+  </style>
+  <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+</head>
+<body>
+  <div class="container">
+    <h2>BMI 계산기</h2>
+    <form id="bmiForm" onsubmit="return false;">
+      <label for="height">키 (cm)</label>
+      <input type="text" id="height" placeholder="예: 170">
+      <label for="weight">체중 (kg)</label>
+      <input type="text" id="weight" placeholder="예: 65">
+      <input type="button" id="btn" value="계산하기">
+    </form>
+    <div id="bmi"></div>
+  </div>
+  <script>
+    document.getElementById("btn").addEventListener("click", function() {
+      let height = document.getElementById("height").value;
+      let weight = document.getElementById("weight").value;
+      fetch(`http://localhost/submid3?height=${height}&weight=${weight}`)
+        .then(response => response.text())
+        .then(data => {
+          document.getElementById("bmi").innerHTML += `${data}<br>`;
+        });
+    });
+  </script>
+</body>
+</html>
